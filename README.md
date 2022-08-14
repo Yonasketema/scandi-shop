@@ -4,5 +4,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
- <img src="f"/>
+
 ![](https://github.com/Yonasketema/scandi-shop/blob/main/public/sample.gif)
