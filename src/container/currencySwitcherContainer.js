@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import DropDown from "../component/DropDown";
+import CurrencySwitcher from "../component/CurrencySwitcher";
 import { currencySwitcher } from "../store/currencySwitcher/action";
 
 const mapStateToProps = (state) => {
@@ -14,4 +14,4 @@ const mapDispatchToProps = (dispatch) => ({
 export const CurrencySwitcherContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(DropDown);
+)(CurrencySwitcher);

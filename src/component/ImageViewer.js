@@ -1,42 +1,46 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 
-function ImageViewer({ imgs, productName }) {
-  const [imageIndex, setImageIndex] = React.useState(0);
-  return (
-    <>
-      <div
-        css={{
-          width: "5rem",
-        }}
-      >
-        {imgs.map((img, i) => (
-          <img
-            src={img}
-            alt={`${productName}`}
-            onClick={() => setImageIndex(i)}
-          />
-        ))}
-      </div>
-      <div
-        style={{
-          width: "27rem",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          objectFit: "cover",
-        }}
-      >
-        <img
-          style={{
-            width: "100%",
+class ImageViewer extends React.Component {
+  state = { imageIndex: 0 };
+  imgs = this.props.imgs;
+  productName = this.props.productName;
+  render() {
+    return (
+      <>
+        <div
+          css={{
+            width: "5rem",
           }}
-          src={`${imgs[imageIndex]}`}
-          alt={productName}
-        ></img>
-      </div>
-    </>
-  );
+        >
+          {this.imgs.map((img, i) => (
+            <img
+              src={img}
+              alt={`${this.productName}`}
+              onClick={() => this.setState({ imageIndex: i })}
+            />
+          ))}
+        </div>
+        <div
+          style={{
+            width: "27rem",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "flex-start",
+            objectFit: "cover",
+          }}
+        >
+          <img
+            style={{
+              width: "100%",
+            }}
+            src={`${this.imgs[this.state.imageIndex]}`}
+            alt={this.productName}
+          ></img>
+        </div>
+      </>
+    );
+  }
 }
 
 export default ImageViewer;

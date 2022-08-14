@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import Overy from "../component/Overy";
+import ImageSlider from "../component/ImageSlider";
 import { addQuantity, minQuantity } from "../store/carts/action";
 
 const mapDispatchToProps = (dispatch) => {
@@ -9,4 +9,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export const OverlayContainer = connect(null, mapDispatchToProps)(Overy);
+export const ImageSliderContainer = connect(
+  null,
+  mapDispatchToProps
+)(ImageSlider);

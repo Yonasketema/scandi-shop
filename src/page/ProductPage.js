@@ -3,12 +3,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import ImageViewer from "../component/ImageViewer";
-import {
-  Center,
-  OrderButton,
-  SwatchButton,
-  TextButton,
-} from "../component/lib";
+import parse from "html-react-parser";
+
+import { OrderButton, SwatchButton, TextButton } from "../component/lib";
 
 function withParams(Component) {
   return (props) => <Component {...props} params={useParams()} />;
@@ -17,12 +14,14 @@ function withParams(Component) {
 class Product extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { product: null, order: null };
+    this.state = { product: null, order: null, price: null };
     this.addToCart = this.props.addToCart;
+
     this.query = `
     query product ($id:String!) {
   
         product(id:$id){
+            id
             name
             inStock 
             gallery
@@ -67,16 +66,29 @@ class Product extends React.Component {
     })
       .then((response) => response.json())
       .then(({ data }) => {
+        const price = data.product.prices.find(
+          (price) => price.currency.label === this.props.currency.value
+        );
         this.setState((state) => ({
           ...state,
           product: data.product,
+          price,
         }));
       });
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.currency.value !== this.props.currency.value) {
+      const price = this.state.product.prices.find(
+        (price) => price.currency.label === this.props.currency.value
+      );
+      this.setState((state) => ({ ...state, price }));
+    }
+  }
+
   render() {
     const { product, order } = this.state;
-    console.log(order);
+
     if (product === null) {
       return <p>loading...</p>;
     }
@@ -94,6 +106,7 @@ class Product extends React.Component {
             display: "flex",
             flexDirection: "column",
             gap: "2rem",
+            maxWidth: "25rem",
           }}
         >
           <div>
@@ -107,10 +120,20 @@ class Product extends React.Component {
 
             <h3
               style={{
+                fontWeight: "500",
                 marginBottom: "1rem",
               }}
             >
               {product.brand}
+            </h3>
+
+            <h3
+              style={{
+                marginBottom: "1rem",
+              }}
+            >
+              {this.state.price?.amount}
+              {this.state.price?.currency.symbol}
             </h3>
 
             {product.attributes.map((attribute) => (
@@ -126,58 +149,70 @@ class Product extends React.Component {
                 >
                   {attribute.name}
                 </p>
-                {attribute.type === "swatch"
-                  ? attribute.items.map((items) => (
-                      <SwatchButton
-                        style={{
-                          padding: ".7rem",
-                        }}
-                        selected={
-                          order?.[attribute.name] === items.displayValue
-                        }
-                        backgroundColor={items?.value}
-                        onClick={() => {
-                          this.setState((state) => ({
-                            ...state,
-                            order: {
-                              ...state.order,
-                              [attribute.name]: items?.displayValue,
-                            },
-                          }));
-                        }}
-                      ></SwatchButton>
-                    ))
-                  : attribute.items.map((items) => (
-                      <TextButton
-                        style={{
-                          padding: ".7rem",
-                        }}
-                        selected={
-                          order?.[attribute.name] === items?.displayValue
-                        }
-                        onClick={() => {
-                          this.setState((state) => ({
-                            ...state,
-                            order: {
-                              ...state.order,
-                              [attribute.name]: items.displayValue,
-                            },
-                          }));
-                        }}
-                      >
-                        {items.value}
-                      </TextButton>
-                    ))}
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: `repeat(${attribute.items.length},1fr)`,
+                  }}
+                >
+                  {attribute.type === "swatch"
+                    ? attribute.items.map((items) => (
+                        <SwatchButton
+                          style={{
+                            padding: "1rem",
+                          }}
+                          selected={
+                            order?.[attribute.name] === items.displayValue
+                          }
+                          backgroundColor={items?.value}
+                          onClick={() => {
+                            this.setState((state) => ({
+                              ...state,
+                              order: {
+                                ...state.order,
+                                [attribute.name]: items?.displayValue,
+                              },
+                            }));
+                          }}
+                        ></SwatchButton>
+                      ))
+                    : attribute.items.map((items) => (
+                        <TextButton
+                          style={{
+                            padding: "1rem",
+                          }}
+                          selected={
+                            order?.[attribute.name] === items?.displayValue
+                          }
+                          onClick={() => {
+                            this.setState((state) => ({
+                              ...state,
+                              order: {
+                                ...state.order,
+                                [attribute.name]: items.displayValue,
+                              },
+                            }));
+                          }}
+                        >
+                          {items.value}
+                        </TextButton>
+                      ))}
+                </div>
               </div>
             ))}
           </div>
           <OrderButton
             padding="1rem 3rem"
-            onClick={() => this.addToCart(this.state)}
+            onClick={() => {
+              if (!this.state.order) {
+                return;
+              }
+              this.addToCart(this.state);
+            }}
           >
             ADD TO CART
           </OrderButton>
-          <p>{product.description}</p>
+          <p>{parse(`${product.description}`)}</p>
         </div>
       </div>
     );

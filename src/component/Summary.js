@@ -3,13 +3,6 @@ import React from "react";
 import { OrderButton } from "./lib";
 
 export default class Summary extends React.Component {
-  constructor(props) {
-    super();
-    this.total = props.total;
-    this.quantity = props.quantity;
-    this.tax = props.tax;
-  }
-
   render() {
     return (
       <>

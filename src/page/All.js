@@ -1,16 +1,15 @@
 import React from "react";
-import { NavLink, useParams } from "react-router-dom";
-import Card from "./../component/Card";
+import { useParams } from "react-router-dom";
+import { CardContainer } from "../container/CardContainer";
 
 function withParams(Component) {
   return (props) => <Component {...props} params={useParams()} />;
 }
 
-class All extends React.Component {
+class All extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { products: null, link: this.props.params.id };
-    this.link = this.props.params.id;
+    this.state = { products: null };
 
     this.query = `
     query product ($input:CategoryInput){
@@ -51,41 +50,17 @@ class All extends React.Component {
       .then((response) => response.json())
       .then(({ data }) => {
         this.setState((state) => ({ ...state, products: data.category }));
-        //console.log(data);
       });
   }
 
-  // componentDidUpdate() {
-  //   // console.log(this.props.params.id);
-  //   fetch("http://localhost:4000/", {
-  //     method: "POST",
-  //     headers: {
-  //       "content-type": "application/json;charset=UTF-8",
-  //     },
-  //     body: JSON.stringify({
-  //       query: this.query,
-  //       // variables: { input: { title: "tech" } },
-  //     }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then(({ data }) => {
-  //       this.setState((state) => ({ ...state, products: data.category }));
-  //       //console.log(data);
-  //     });
-  // }
-
   componentDidMount() {
-    this.fetch(`${this.state.link}`);
-  }
-  componentDidUpdate() {
     this.fetch(`${this.props.params.id}`);
-    //  this.fetch(`${this.state.link}`);
   }
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.params.id === this.props.params.id) {
-      return false;
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.params.id !== this.props.params.id) {
+      this.fetch(`${this.props.params.id}`);
     }
-    return true;
   }
 
   render() {
@@ -97,7 +72,9 @@ class All extends React.Component {
 
     return (
       <div>
-        <p style={{ margin: "6rem 0", fontSize: "3rem" }}>{products.name}</p>
+        <p style={{ margin: "6rem 0", fontSize: "3rem" }}>
+          {products.name.toUpperCase()}
+        </p>
         <div
           style={{
             display: "grid",
@@ -109,7 +86,7 @@ class All extends React.Component {
         >
           {products?.products.map((product) => (
             <div key={product.id}>
-              <Card item={product} />
+              <CardContainer item={product} />
             </div>
           ))}
           ;

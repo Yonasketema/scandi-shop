@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
-import ArrowIcon from "./Vector.svg";
+
 import { NavLink } from "react-router-dom";
+import { primary } from "../style/color";
 
 const Arrow = styled.img((props) => ({
   width: "1rem",
@@ -13,10 +14,11 @@ const Center = styled.div({
   marginBottom: "5rem",
 });
 
-const P = styled.p((props) => ({
+const Title = styled.p((props) => ({
   margin: "6rem 0",
   fontSize: props.fontSize,
 }));
+
 const StyledNavLink = styled(NavLink)({
   textDecoration: "none",
   color: "inherit",
@@ -24,9 +26,11 @@ const StyledNavLink = styled(NavLink)({
 });
 
 const SwatchButton = styled.button((props) => ({
-  padding: ".3rem .3rem",
-  border: props.selected && "1px solid #127123",
+  padding: ".5rem .5rem",
+  //border:  "none",
   backgroundColor: props.backgroundColor,
+  outline: props.selected && `2px solid ${primary}`,
+  outlineOffset: "2px",
   margin: " 0 .2rem",
 }));
 
@@ -39,10 +43,11 @@ const TextButton = styled.button((props) => ({
 }));
 
 const OrderButton = styled.button((props) => ({
-  backgroundColor: "green",
+  backgroundColor: primary,
   border: "none",
   padding: props.padding,
   color: "#fff",
+
   fontSize: props.fontSize,
 }));
 const OverlayContainer = styled.div`
@@ -69,8 +74,8 @@ export {
   TextButton,
   OrderButton,
   OverlayContainer,
-  P,
   StyledNavLink,
   Center,
   Arrow,
+  Title,
 };

@@ -2,6 +2,12 @@ import { connect } from "react-redux";
 import ProductPage from "../page/ProductPage";
 import { addToCart } from "../store/carts/action";
 
+const mapStateProps = (state) => {
+  return {
+    currency: state.currency,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: (product) => dispatch(addToCart(product)),
@@ -9,6 +15,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export const ProductPageContainer = connect(
-  null,
+  mapStateProps,
   mapDispatchToProps
 )(ProductPage);

@@ -1,20 +1,23 @@
 /** @jsxImportSource @emotion/react */
 
-import React from "react";
 import { SwatchButton, TextButton } from "./lib";
-import { OverlayContainer } from "../container/OveryContainer";
+import { ImageSliderContainer } from "../container/ImageSliderContainer";
+import { gray20, gray80 } from "../style/color";
 
-function CartViewer({ product, order, large, id, quantity }) {
+function CartViewer({ product, order, large, id, quantity, currency }) {
+  const price = product.prices.find(
+    (price) => price.currency.label === currency.value
+  );
   return (
     <div
       style={{
-        padding: large ? "1.5rem 1rem" : "0 1rem",
         display: "flex",
-        textAlign: "left",
         justifyContent: "space-between",
-        borderBottom: large && "1px solid #999",
+        textAlign: "left",
+        padding: large && "1.5rem 1rem",
+        borderBottom: large && `1px solid ${gray20}`,
         marginBottom: "2.5rem",
-        color: "#333",
+        color: gray80,
       }}
     >
       <div
@@ -47,7 +50,8 @@ function CartViewer({ product, order, large, id, quantity }) {
             color: "#000",
           }}
         >
-          3000$
+          {price?.amount}
+          {price?.currency.symbol}
         </h3>
         <div>
           {product.attributes.map((attribute) => (
@@ -59,8 +63,7 @@ function CartViewer({ product, order, large, id, quantity }) {
             >
               <p
                 style={{
-                  fontSize: large ? ".8rem" : ".7rem",
-
+                  fontSize: large ? "1rem" : ".7rem",
                   marginBottom: large ? ".4rem" : ".2rem",
                 }}
               >
@@ -74,10 +77,16 @@ function CartViewer({ product, order, large, id, quantity }) {
                           order?.[attribute.name] === items.displayValue
                         }
                         backgroundColor={items?.value}
+                        style={{
+                          padding: large && "1rem",
+                        }}
                       ></SwatchButton>
                     ))
                   : attribute.items.map((items) => (
                       <TextButton
+                        style={{
+                          padding: large && "1rem",
+                        }}
                         selected={
                           order?.[attribute.name] === items?.displayValue
                         }
@@ -91,7 +100,7 @@ function CartViewer({ product, order, large, id, quantity }) {
         </div>
       </div>
       <div>
-        <OverlayContainer
+        <ImageSliderContainer
           imgs={product.gallery}
           large={large}
           quantity={quantity}

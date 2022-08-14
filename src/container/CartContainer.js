@@ -4,6 +4,7 @@ import CartPage from "../page/CartPage";
 const mapStateProps = (state) => {
   return {
     data: state.cart,
+    currency: state.currency,
   };
 };
 

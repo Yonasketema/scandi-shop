@@ -1,8 +1,7 @@
 import CartViewer from "../component/Cart";
-import Summary from "../component/Summary";
 import { SummaryContainer } from "../container/summaryContainer";
 
-export default function Cart({ data, large }) {
+export default function Cart({ data, large, currency }) {
   return (
     <>
       {data.map((product) => {
@@ -14,6 +13,7 @@ export default function Cart({ data, large }) {
             large={large}
             id={product.id}
             quantity={product.quantity}
+            currency={currency}
           />
         );
       })}

@@ -1,8 +1,10 @@
 import React from "react";
 import logo from "./../logo.svg";
-import Switch from "./Switch.js";
 
-import { StyledNavLink as NavLink } from "./lib";
+// import { StyledNavLink as NavLink } from "./lib";
+
+import { NavBarContainer } from "../container/NavBarContainer";
+import { NavLink } from "react-router-dom";
 
 class Header extends React.PureComponent {
   render() {
@@ -13,8 +15,7 @@ class Header extends React.PureComponent {
           alignItems: "center",
           justifyContent: "space-between",
           height: "100px",
-          margin: "0 auto",
-          fontSize: "1.3rem",
+          fontSize: "1.2rem",
         }}
       >
         <nav
@@ -58,7 +59,7 @@ class Header extends React.PureComponent {
         <div>
           <img src={logo} alt="logo" />
         </div>
-        <Switch />
+        <NavBarContainer />
       </div>
     );
   }
