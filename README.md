@@ -2,7 +2,6 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+### Sample view
 
-
-![Sample view](https://github.com/Yonasketema/scandi-shop/blob/main/public/sample.gif)
+![](https://github.com/Yonasketema/scandi-shop/blob/main/public/sample.gif)
