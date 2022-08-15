@@ -56,6 +56,7 @@ function CartViewer({ product, order, large, id, quantity, currency }) {
         <div>
           {product.attributes.map((attribute) => (
             <div
+              key={attribute.name}
               style={{
                 fontSize: ".7rem",
                 marginBottom: large ? "1rem" : ".5rem",
@@ -73,6 +74,7 @@ function CartViewer({ product, order, large, id, quantity, currency }) {
                 {attribute.type === "swatch"
                   ? attribute.items.map((items) => (
                       <SwatchButton
+                        key={items.displayValue}
                         selected={
                           order?.[attribute.name] === items.displayValue
                         }
@@ -84,6 +86,7 @@ function CartViewer({ product, order, large, id, quantity, currency }) {
                     ))
                   : attribute.items.map((items) => (
                       <TextButton
+                        key={items.displayValue}
                         style={{
                           padding: large && "1rem",
                         }}

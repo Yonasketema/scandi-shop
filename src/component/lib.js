@@ -5,7 +5,7 @@ import { primary } from "../style/color";
 
 const Arrow = styled.img((props) => ({
   width: "1rem",
-  transform: props.rotate ? "rotate(180deg)" : "",
+  transform: props.isRotate ? "rotate(180deg)" : "rotate(0deg)",
 }));
 
 const Center = styled.div({

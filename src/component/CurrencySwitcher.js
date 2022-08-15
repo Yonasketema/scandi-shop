@@ -51,7 +51,7 @@ export default class CurrencySwitcher extends Component {
         >
           <p>{this.props.currency.label}</p>
           <span>
-            <Arrow src={ArrowIcon} rotate={this.state.open} />
+            <Arrow src={ArrowIcon} isRotate={this.state.open} />
           </span>
         </div>
         <div

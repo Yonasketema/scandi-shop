@@ -7,8 +7,6 @@ import React, { Component } from "react";
 // minQuantity = () => {},
 
 class ImageSlider extends Component {
-  // const [index, setIndex] = React.useState(0);
-
   state = { index: 0 };
 
   render() {
@@ -52,18 +50,8 @@ class ImageSlider extends Component {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="M8.5 1V16"
-                  stroke="#1D1F22"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M1 8.5H16"
-                  stroke="#1D1F22"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
+                <path d="M8.5 1V16" stroke="#1D1F22" />
+                <path d="M1 8.5H16" stroke="#1D1F22" />
               </svg>
             </h6>
           </button>
@@ -100,12 +88,7 @@ class ImageSlider extends Component {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="M1 0.5H16"
-                  stroke="#1D1F22"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
+                <path d="M1 0.5H16" stroke="#1D1F22" />
               </svg>
             </h6>
           </button>
@@ -152,13 +135,10 @@ class ImageSlider extends Component {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <rect width="24" height="24" fill="black" fill-opacity="0.73" />
+                <rect width="24" height="24" fill="black" />
                 <path
                   d="M14.25 6.06857L8.625 11.6876L14.25 17.3066"
                   stroke="white"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
                 />
               </svg>
             </button>
@@ -190,14 +170,10 @@ class ImageSlider extends Component {
                   height="24"
                   transform="matrix(-1 0 0 1 24 0)"
                   fill="black"
-                  fill-opacity="0.73"
                 />
                 <path
                   d="M9.75 6.06857L15.375 11.6876L9.75 17.3066"
                   stroke="white"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
                 />
               </svg>
             </button>

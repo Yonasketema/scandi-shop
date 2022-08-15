@@ -136,8 +136,9 @@ class Product extends React.Component {
               {this.state.price?.currency.symbol}
             </h3>
 
-            {product.attributes.map((attribute) => (
+            {product.attributes.map((attribute, i) => (
               <div
+                key={attribute.name}
                 style={{
                   marginBottom: "1rem",
                 }}
@@ -150,6 +151,7 @@ class Product extends React.Component {
                   {attribute.name}
                 </p>
                 <div
+                  key={attribute.name}
                   style={{
                     display: "grid",
                     gridTemplateColumns: `repeat(${attribute.items.length},1fr)`,
@@ -158,6 +160,7 @@ class Product extends React.Component {
                   {attribute.type === "swatch"
                     ? attribute.items.map((items) => (
                         <SwatchButton
+                          key={items.displayValue}
                           style={{
                             padding: "1rem",
                           }}
@@ -178,6 +181,7 @@ class Product extends React.Component {
                       ))
                     : attribute.items.map((items) => (
                         <TextButton
+                          key={items.displayValue}
                           style={{
                             padding: "1rem",
                           }}
@@ -204,15 +208,12 @@ class Product extends React.Component {
           <OrderButton
             padding="1rem 3rem"
             onClick={() => {
-              if (!this.state.order) {
-                return;
-              }
               this.addToCart(this.state);
             }}
           >
             ADD TO CART
           </OrderButton>
-          <p>{parse(`${product.description}`)}</p>
+          <>{parse(`${product.description}`)}</>
         </div>
       </div>
     );

@@ -14,11 +14,14 @@ class ImageViewer extends React.Component {
           }}
         >
           {this.imgs.map((img, i) => (
-            <img
-              src={img}
-              alt={`${this.productName}`}
-              onClick={() => this.setState({ imageIndex: i })}
-            />
+            <div key={img}>
+              <img
+                key={img}
+                src={img}
+                alt={`${this.productName}`}
+                onClick={() => this.setState({ imageIndex: i })}
+              />
+            </div>
           ))}
         </div>
         <div
